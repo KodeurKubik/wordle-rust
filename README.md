@@ -12,7 +12,9 @@ Just press the letters you wanna type, **backspace** if you've done a mistake an
 
 ## Demo
 
-(to be uploaded)
+
+https://github.com/user-attachments/assets/20f6d54a-840f-49b6-835a-3a774670fac0
+
 
 ## Installation
 
