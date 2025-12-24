@@ -131,7 +131,7 @@ impl<'a> App<'a> {
                 let correct = self.correct.iter().collect::<String>();
                 if word == correct {
                     self.exit_message = Some(format!(
-                        "Congrats! The word was {}. You guessed it in {} tries.",
+                        "Congratz! The word was indeed {}. You guessed it in {} tries.",
                         correct,
                         self.guesses.len() + 1
                     ));
@@ -158,7 +158,17 @@ impl<'a> App<'a> {
 
 impl<'a> Widget for &'a App<'a> {
     fn render(self, area: Rect, buf: &mut Buffer) {
+        #[cfg(debug_assertions)]
+        let title = Line::from(vec![
+            " W O R D L E ".bold(),
+            "- ".into(),
+            self.correct.iter().collect::<String>().into(),
+            " ".into(),
+        ]);
+
+        #[cfg(not(debug_assertions))]
         let title = Line::from(" W O R D L E ".bold());
+
         let instructions = Line::from(vec![
             " Press a ".into(),
             "<key>".blue().bold(),
@@ -226,16 +236,20 @@ impl<'a> Widget for &'a App<'a> {
                 let mut done: HashMap<char, usize> = HashMap::new();
 
                 for j in 0..5 {
-                    let cell_block;
-
                     if word[j] == self.correct[j] {
-                        cell_block = Block::bordered().green();
-
                         if let Some(count) = done.get_mut(&word[j]) {
                             *count = count.saturating_add(1);
                         } else {
                             done.insert(word[j], 1usize);
                         }
+                    }
+                }
+
+                for j in 0..5 {
+                    let cell_block;
+
+                    if word[j] == self.correct[j] {
+                        cell_block = Block::bordered().green();
                     } else {
                         let mut count = self.correct.iter().filter(|x| x == &&word[j]).count();
 
