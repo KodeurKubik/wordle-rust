@@ -23,7 +23,7 @@ You can either download the executable from the RELEASES tab, or compile it your
 1. cloning the repo
 
 ```
-https://github.com/KodeurKubik/wordle-rust
+git clone https://github.com/KodeurKubik/wordle-rust
 cd wordle-rust
 ```
 
